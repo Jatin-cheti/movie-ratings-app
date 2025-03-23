@@ -1,0 +1,57 @@
+<div class="admin-container">
+    <h2>Admin Panel</h2>
+  
+    <button (click)="openAddMovieModal()" class="admin-button">Add Movie</button>
+  
+    <h3>Manage Movies</h3>
+  
+    <div class="movies-grid">
+      <div class="movie-card" *ngFor="let movie of movies">
+        <img
+          [src]="getImageUrl(movie.imageUrl)"
+          alt="{{ movie.title }}"
+          class="movie-image"
+        />
+        <h3>{{ movie.title }}</h3>
+        <p>{{ movie.description }}</p>
+        <p><strong>Rating:</strong> ⭐{{ movie.rating }}</p>
+  
+        <div class="admin-buttons">
+          <button (click)="openEditMovieModal(movie)" class="edit-button">Edit</button>
+          <button (click)="deleteMovie(movie.id)" class="delete-button">Delete</button>
+        </div>
+      </div>
+    </div>
+  
+    <div class="pagination">
+      <button (click)="prevPage()" [disabled]="page === 1">Previous</button>
+      <span>Page {{ page }}</span>
+      <button (click)="nextPage()" [disabled]="!hasMoreMovies">Next</button>
+    </div>
+  
+    <div class="modal" *ngIf="showModal">
+      <div class="modal-content">
+        <h3>{{ editingMovie ? 'Edit Movie' : 'Add Movie' }}</h3>
+        <form (submit)="submitMovieForm()">
+            <label>Title:</label>
+            <input type="text" [(ngModel)]="movieForm.title" name="title" required />
+          
+            <label>Description:</label>
+            <textarea [(ngModel)]="movieForm.description" name="description" required></textarea>
+          
+            <label>Rating:</label>
+            <input type="number" [(ngModel)]="movieForm.rating" name="rating" min="0" max="10" step="0.1" required />
+          
+            <label>Image:</label>
+            <input type="file" (change)="onFileSelected($event)" />
+          
+            <div class="modal-buttons">
+              <button type="submit" class="save-button">{{ editingMovie ? 'Update' : 'Add' }}</button>
+              <button type="button" (click)="closeModal()" class="cancel-button">Cancel</button>
+            </div>
+          </form>
+          
+      </div>
+    </div>
+  </div>
+  

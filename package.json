@@ -1,0 +1,16 @@
+{
+  "name": "movieratingapp",
+  "version": "1.0.0",
+  "main": "index.js",
+"scripts": {
+  "install:all": "cd MovieRatingBackend && npm install && cd ../movie-rating && npm install",
+  "start": "concurrently \"cd MovieRatingBackend && nodemon app.js\" \"cd movie-rating && ng serve\"",
+  "migrate": "cd MovieRatingBackend && npm run migration",
+  "seed": "cd MovieRatingBackend && npm run seeds",
+  "setup": "npm run migrate && npm run seed"
+},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}

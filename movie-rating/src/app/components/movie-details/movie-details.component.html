@@ -1,0 +1,71 @@
+<div class="movie-details-container" *ngIf="movie">
+  <img [src]="getImageUrl(movie.imageUrl)" alt="{{ movie.title }}" class="movie-image" />
+  <h2>{{ movie.title }}</h2>
+  <p><strong>Description:</strong> {{ movie.description }}</p>
+  <p><strong>Rating:</strong> ⭐{{ movie.rating }}</p>
+
+  <button class="add-review-btn" (click)="openReviewModal()">Add Review</button>
+
+  <h3>Reviews</h3>
+  <div class="sort-container">
+    <label for="sortReviews">Sort by:</label>
+    <select id="sortReviews" (change)="sortReviews($event)">
+      <option value="recent">Most Recent</option>
+      <option value="popular">Most Popular</option>
+    </select>
+  </div>
+
+  <div class="reviews-container">
+    <div *ngIf="reviews.length > 0; else noReviews">
+      <div class="review-card" *ngFor="let review of reviews">
+        
+        <div *ngIf="editMode === review.id; else viewMode">
+          <textarea [(ngModel)]="editedReviewContent"></textarea>
+          <select [(ngModel)]="editedReviewRating">
+            <option *ngFor="let r of [1,2,3,4,5]" [value]="r">{{ r }} ⭐</option>
+          </select>
+          <button (click)="saveEditReview(review.id)">Save</button>
+          <button (click)="cancelEdit()">Cancel</button>
+        </div>
+
+        <ng-template #viewMode>
+          <p><strong>{{ review.User?.username }}:</strong> {{ review.content }}</p>
+          <p><strong>Rating:</strong> ⭐{{ review.rating }}</p>
+          <p><strong>Likes:</strong> ❤️{{ review.likesCount }}</p>
+          <button class="like-btn" (click)="likeReview(review.id)">👍 </button>
+
+          <div *ngIf="loggedInUserId === review.userId">
+            <button class="edit-btn" (click)="startEditReview(review)">✏️ Edit</button>
+            <button class="delete-btn" (click)="deleteReview(review.id)">🗑️ Delete</button>
+          </div>
+        </ng-template>
+
+      </div>
+    </div>
+    <ng-template #noReviews>
+      <p>No reviews yet.</p>
+    </ng-template>
+  </div>
+
+  <div class="pagination-controls">
+    <button (click)="prevPage()" [disabled]="currentPage === 1">Previous</button>
+    <span>Page {{ currentPage }} of {{ totalPages }}</span>
+    <button (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
+  </div>
+
+  <button class="back-btn" (click)="goBack()">Back to Movies</button>
+</div>
+
+
+<div class="modal" *ngIf="isReviewModalOpen">
+  <div class="modal-content">
+    <span class="close-btn" (click)="closeReviewModal()">&times;</span>
+    <h2>Add Review</h2>
+    <textarea [(ngModel)]="reviewContent" placeholder="Write your review..." rows="4"></textarea>
+    <label for="rating">Rating:</label>
+    <select [(ngModel)]="reviewRating">
+      <option *ngFor="let r of [1,2,3,4,5]" [value]="r">{{ r }} ⭐</option>
+    </select>
+    <button (click)="addReview()">Submit Review</button>
+  </div>
+</div>

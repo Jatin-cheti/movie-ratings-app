@@ -1,0 +1,15 @@
+<div class="auth-page">
+  <div class="auth-container">
+    <h2>Signup</h2>
+    <form [formGroup]="signupForm" (ngSubmit)="signup()">
+      <input type="text" formControlName="username" placeholder="Username" required />
+      <input type="email" formControlName="email" placeholder="Email" required />
+      <input type="password" formControlName="password" placeholder="Password" required />
+      <button type="submit" [disabled]="signupForm.invalid">Sign Up</button>
+    </form>
+    <p *ngIf="errorMessage">{{ errorMessage }}</p>
+    <p>Already have an account? 
+      <a (click)="navigateToLogin()" style="cursor: pointer; color: blue; text-decoration: underline;">Login</a>
+    </p>
+  </div>
+</div>

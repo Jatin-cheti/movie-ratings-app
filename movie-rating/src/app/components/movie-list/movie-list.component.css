@@ -1,0 +1,102 @@
+.movies-container {
+  text-align: center;
+  padding: 20px;
+  background-color: #8cbacd; /* Added background color */
+  min-height: 100vh;
+}
+
+/* Grid with exactly 3 movies per row */
+.movies-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  padding: 20px;
+}
+
+/* Movie Card */
+.movie-card {
+  background: #b48c7c;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.2s ease-in-out;
+}
+
+.movie-card:hover {
+  transform: scale(1.05);
+}
+
+/* Movie Image */
+.movie-image {
+  width: 100%; /* Makes all images the same width */
+  height: 300px; /* Set a fixed height */
+  object-fit: cover; /* Ensures uniform image scaling without distortion */
+  border-radius: 8px;
+}
+
+/* Movie Text */
+.movie-card h3 {
+  margin: 10px 0;
+  color: #333;
+}
+
+.movie-card p {
+  color: #666;
+}
+
+/* Buttons */
+button {
+  background-color: #ff4500;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+button:hover {
+  background-color: #ff5733;
+}
+
+/* Pagination */
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.pagination button {
+  background-color: #ff4500;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.pagination button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.pagination span {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+/* Responsive for Smaller Screens */
+@media (max-width: 900px) {
+  .movies-grid {
+    grid-template-columns: repeat(2, 1fr); /* Two per row */
+  }
+}
+
+@media (max-width: 600px) {
+  .movies-grid {
+    grid-template-columns: repeat(1, 1fr); /* One per row */
+  }
+}

@@ -1,0 +1,25 @@
+<div class="movies-container">
+  <h2>Movies List</h2>
+  <button *ngIf="loggedInUserRole === 'admin'" (click)="goToAdminPanel()" class="admin-button">
+    Go to Admin Panel
+  </button>
+  <div class="movies-grid">
+    <div class="movie-card" *ngFor="let movie of movies">
+      <img
+        [src]="getImageUrl(movie.imageUrl)"
+        alt="{{ movie.title }}"
+        class="movie-image"
+      />
+      <h3>{{ movie.title }}</h3>
+      <p>{{ movie.description }}</p>
+      <p><strong>Rating:</strong> ⭐{{ movie.rating }}</p>
+      <button (click)="goToMovieDetails(movie.id)">View Details</button>
+    </div>
+  </div>
+
+  <div class="pagination">
+    <button (click)="prevPage()" [disabled]="page === 1">Previous</button>
+    <span>Page {{ page }}</span>
+    <button (click)="nextPage()" [disabled]="!hasMoreMovies">Next</button>
+  </div>
+</div>
